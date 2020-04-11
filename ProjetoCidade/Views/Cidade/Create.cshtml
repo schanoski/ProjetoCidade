@@ -1,0 +1,21 @@
+﻿@model ProjetoCidade.Models.Cidade
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+    <form action="/cidade/create" method="post">
+        <input type="number" name="codigoMunicipio" /><br />
+        <input type="text" name="nomeMunicipio" /><br />
+        <input type="text" name="ufMunicipio" /><br />
+        <button>Salvar</button>
+    </form>
+</body>
+</html>

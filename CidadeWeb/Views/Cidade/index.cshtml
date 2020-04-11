@@ -1,0 +1,103 @@
+﻿@model IEnumerable<CidadeWeb.Models.Cidade>
+@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "Index";
+}
+
+@if(Session["usuario"] != null) {
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Cidade</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+
+
+    <div id="myCarousel" align="center" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <img class="img-carousel" src="~/Img/chongqing_rogg4n_flickr.jpg">
+            </div>
+
+            <div class="item">
+                <img class="img-carousel" src="~/Img/london.jpg">
+            </div>
+
+            <div class="item">
+                <img class="img-carousel" src="~/Img/riodejaneiro_rodrigosoldon_flickr.jpg">
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Anterior</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Próximo</span>
+        </a>
+    </div>
+
+
+
+    <hr>
+
+    <div>
+        @Html.ActionLink("Cadastrar Município", "Create", null, new { @class = "btn btn-primary" })
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Tabela</th>
+                <th scope="col">Codigo</th>
+                <th scope="col">Nome</th>
+                <th scope="col">UF</th>
+                <th scope="col">Editar/Excluir</th>
+            </tr>
+
+        <tbody>
+            @foreach (var cidade in Model)
+            {
+
+            <tr>
+                <th scope="row">@cidade.Id</th>
+                <td>@cidade.Codigo</td>
+                <td>@cidade.Nome</td>
+                <td>@cidade.Uf</td>
+                <td>
+                    <a class="btn btn-warning glyphicon glyphicon-edit" href="/Cidade/Update/@cidade.Id"></a>
+                    <a class="btn btn-danger glyphicon glyphicon-remove" href="/Cidade/Delete/@cidade.Id"></a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
+}
