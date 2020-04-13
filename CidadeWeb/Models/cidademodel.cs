@@ -15,10 +15,12 @@ namespace CidadeWeb.Models
             connection = new SqlConnection(strConn);
             connection.Open();
 
-            }catch(Exception e)
-            {
-                throw new Exception();
             }
+            catch (Exception e)
+            {
+                throw new ArgumentException("erro ao iniciar o banco de dados", e);
+            }
+
         }
 
         public void Dispose()
@@ -38,15 +40,17 @@ namespace CidadeWeb.Models
             cmd.Parameters.AddWithValue("@uf", cidade.Uf);
 
             cmd.ExecuteNonQuery();
-            }catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
             }
+            catch (Exception e)
+            {
+                throw new ArgumentException("erro ao acessar os dados da tabela Cidade no banco de dados", e);
+            }
+
         }
 
         public List<Cidade> Read()
         {
-            
+            try{ 
             List<Cidade> lista = new List<Cidade>();
            
             SqlCommand cmd = new SqlCommand();
@@ -68,6 +72,11 @@ namespace CidadeWeb.Models
             }
 
             return lista;
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("erro ao acessar os dados da tabela Cidade no banco de dados", e);
+            }
         }
 
 
@@ -86,10 +95,12 @@ namespace CidadeWeb.Models
             cmd.Parameters.AddWithValue("@id", cidade.Id);
 
             cmd.ExecuteNonQuery();
-            }catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
             }
+            catch (Exception e)
+            {
+                throw new ArgumentException("erro ao atualizar os dados da tabela Cidade no banco de dados", e);
+            }
+
         }
 
 
@@ -111,14 +122,15 @@ namespace CidadeWeb.Models
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                throw new ArgumentException("erro ao deletar os dados no banco de dados", e);
             }
+
         }
 
 
         public Cidade Read(int id)
         {
-
+            try{ 
             Cidade cidade = null;
 
             SqlCommand cmd = new SqlCommand();
@@ -141,6 +153,10 @@ namespace CidadeWeb.Models
             }
 
             return cidade;
+            }catch (Exception e)
+            {
+                throw new ArgumentException("erro ao selecionar os dados da tabela pelo id Cidade no banco de dados", e);
+            }
         }
     }
 }
