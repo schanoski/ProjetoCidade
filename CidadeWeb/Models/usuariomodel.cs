@@ -19,7 +19,7 @@ namespace CidadeWeb.Models
             }
             catch
             {
-                throw new ArgumentOutOfRangeException("erro ao conectar com o banco de dados");
+                throw new Exception("erro ao conectar com o banco de dados");
             }
         }
 
@@ -55,9 +55,9 @@ namespace CidadeWeb.Models
             }
 
             }
-            catch (Exception e)
+            catch
             {
-                throw new ArgumentException("erro ao consultar o usuário no banco de dados", e);
+                throw new Exception("Erro ao acessar a tabela do usuario");
             }
         }
 

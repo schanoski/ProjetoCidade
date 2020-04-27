@@ -41,9 +41,9 @@ namespace CidadeWeb.Models
 
             cmd.ExecuteNonQuery();
             }
-            catch (Exception e)
+            catch
             {
-                throw new ArgumentException("erro ao acessar os dados da tabela Cidade no banco de dados", e);
+                throw new Exception();
             }
 
         }
@@ -73,9 +73,9 @@ namespace CidadeWeb.Models
 
             return lista;
             }
-            catch (Exception e)
+            catch 
             {
-                throw new ArgumentException("erro ao acessar os dados da tabela Cidade no banco de dados", e);
+                throw new Exception();
             }
         }
 
@@ -96,9 +96,9 @@ namespace CidadeWeb.Models
 
             cmd.ExecuteNonQuery();
             }
-            catch (Exception e)
+            catch
             {
-                throw new ArgumentException("erro ao atualizar os dados da tabela Cidade no banco de dados", e);
+                throw new Exception();
             }
 
         }
@@ -120,9 +120,9 @@ namespace CidadeWeb.Models
             {
                 Console.WriteLine("Esta passando valor nulo");
             }
-            catch (Exception e)
+            catch
             {
-                throw new ArgumentException("erro ao deletar os dados no banco de dados", e);
+                throw new Exception();
             }
 
         }
@@ -153,9 +153,9 @@ namespace CidadeWeb.Models
             }
 
             return cidade;
-            }catch (Exception e)
+            }catch
             {
-                throw new ArgumentException("erro ao selecionar os dados da tabela pelo id Cidade no banco de dados", e);
+                throw new Exception();
             }
         }
     }

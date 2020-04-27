@@ -1,19 +1,20 @@
-﻿using CidadeWeb.Models;
+﻿using CidadeWeb.DAO;
+using CidadeWeb.Models;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
 
 namespace CidadeWeb.Controllers
 {
+    [HandleError]
     public class CidadeController : Controller
     {
         // GET: Cidade
         public ActionResult Index()
         {
-
             if (Session["usuario"] != null)
             {
-                using (CidadeModel model = new CidadeModel())
+                using (CidadeDAO model = new CidadeDAO())
                 {
                     List<Cidade> lista = model.Read();
                     return View(lista);
@@ -22,14 +23,20 @@ namespace CidadeWeb.Controllers
             else
             {
                 return RedirectToAction("Login");
-            }
-           
+            } 
         }
 
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            if (Session["usuario"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
 
         [HttpPost]
@@ -40,7 +47,7 @@ namespace CidadeWeb.Controllers
             cidade.Nome = form["Nome"];
             cidade.Uf = form["Uf"];
 
-            using (CidadeModel model = new CidadeModel())
+            using (CidadeDAO model = new CidadeDAO())
             {
                 model.Create(cidade);
                 return RedirectToAction("Index");
@@ -49,10 +56,18 @@ namespace CidadeWeb.Controllers
 
         public ActionResult Update(int id)
         {
-            using (CidadeModel model = new CidadeModel())
+            if (Session["usuario"] != null)
             {
-                return View(model.Read(id));
+                using (CidadeDAO model = new CidadeDAO())
+                {
+                    return View(model.Read(id));
+                }
             }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+
         }
 
         [HttpPost]
@@ -60,7 +75,7 @@ namespace CidadeWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (CidadeModel model = new CidadeModel())
+                using (CidadeDAO model = new CidadeDAO())
                 {
                     model.Update(cidade);
                     return RedirectToAction("Index");
@@ -74,10 +89,17 @@ namespace CidadeWeb.Controllers
 
         public ActionResult Delete(int id)
         {
-            using(CidadeModel model = new CidadeModel())
+            if (Session["usuario"] != null)
             {
-                model.Delete(id);
-                return RedirectToAction("Index");
+                using (CidadeDAO model = new CidadeDAO())
+                {
+                    model.Delete(id);
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login");
             }
         }
 
@@ -93,7 +115,7 @@ namespace CidadeWeb.Controllers
             u.Login = form["Login"];
             u.Senha = form["Senha"];          
             
-            using (UsuarioModel model = new UsuarioModel())
+            using (UsuarioDAO model = new UsuarioDAO())
             {
                 Usuario objUsuario = model.Consulta(u);
                 if (objUsuario != null)
